@@ -69,16 +69,19 @@
     </style>
 </head>
 <body>
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+    </audio>
     <canvas id="fireworks"></canvas>
     <div class="container" id="question">
-        <h1>¿Natalitax, Quieres ser mi San Valentín? ​🩵​</h1>
+        <h1>¿Natalitax, quieres ser mi San Valentín? 🩵​</h1>
         <button class="yes" onclick="acceptLove()">Sí</button>
         <button class="no" onmouseover="moveButton()">No</button>
     </div>
     
     <div class="container hidden" id="celebration">
-        <h1>¡OLeeeeee sabía que dirías que si ☺️​! 💖</h1>
-        <p class="celebration">¡Te amo muchísimo! 🎉🥰</p>
+        <h1>¡OLEEEEEEE sabría que dirías que sí! 🎉💖</h1>
+        <p class="celebration">¡Te amo muchísimo! 🥰</p>
         <div class="hearts">💘💖💕💞</div>
     </div>
     
@@ -87,6 +90,7 @@
             document.getElementById("question").classList.add("hidden");
             document.getElementById("celebration").classList.remove("hidden");
             startFireworks();
+            document.getElementById("bg-music").play();
         }
 
         function moveButton() {
@@ -108,11 +112,11 @@
                 return {
                     x,
                     y,
-                    size: Math.random() * 4 + 1,
-                    speedX: Math.random() * 4 - 2,
-                    speedY: Math.random() * 4 - 2,
-                    color: `hsl(${Math.random() * 360}, 100%, 60%)`,
-                    life: 100
+                    size: Math.random() * 6 + 2,
+                    speedX: Math.random() * 6 - 3,
+                    speedY: Math.random() * 6 - 3,
+                    color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                    life: 120
                 };
             }
 
@@ -138,12 +142,12 @@
             function createFirework() {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height * 0.5;
-                for (let i = 0; i < 30; i++) {
+                for (let i = 0; i < 50; i++) {
                     particles.push(createParticle(x, y));
                 }
             }
 
-            setInterval(createFirework, 500);
+            setInterval(createFirework, 400);
             animate();
         }
     </script>
