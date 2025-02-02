@@ -10,6 +10,7 @@
             text-align: center;
             background-color: #ffe6e6;
             padding: 50px;
+            overflow: hidden;
         }
         .container {
             background: white;
@@ -17,6 +18,8 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: inline-block;
+            position: relative;
+            z-index: 2;
         }
         h1 {
             color: #ff4d4d;
@@ -54,18 +57,28 @@
             from { transform: translateY(0px); }
             to { transform: translateY(-10px); }
         }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
+    <canvas id="fireworks"></canvas>
     <div class="container" id="question">
-        <h1>¿Quieres ser mi San Valentín? ❤️</h1>
+        <h1>¿Natalitax, Quieres ser mi San Valentín? ​🩵​</h1>
         <button class="yes" onclick="acceptLove()">Sí</button>
         <button class="no" onmouseover="moveButton()">No</button>
     </div>
     
     <div class="container hidden" id="celebration">
-        <h1>¡Eres el mejor San Valentín! 💖</h1>
-        <p class="celebration">¡Te quiero muchísimo! 🎉🥰</p>
+        <h1>¡OLeeeeee sabía que dirías que si ☺️​! 💖</h1>
+        <p class="celebration">¡Te amo muchísimo! 🎉🥰</p>
         <div class="hearts">💘💖💕💞</div>
     </div>
     
@@ -73,6 +86,7 @@
         function acceptLove() {
             document.getElementById("question").classList.add("hidden");
             document.getElementById("celebration").classList.remove("hidden");
+            startFireworks();
         }
 
         function moveButton() {
@@ -81,6 +95,56 @@
             const y = Math.random() * (window.innerHeight - 50);
             button.style.left = `${x}px`;
             button.style.top = `${y}px`;
+        }
+
+        function startFireworks() {
+            const canvas = document.getElementById("fireworks");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const particles = [];
+
+            function createParticle(x, y) {
+                return {
+                    x,
+                    y,
+                    size: Math.random() * 4 + 1,
+                    speedX: Math.random() * 4 - 2,
+                    speedY: Math.random() * 4 - 2,
+                    color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+                    life: 100
+                };
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.life--;
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    if (p.life <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+
+            function createFirework() {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height * 0.5;
+                for (let i = 0; i < 30; i++) {
+                    particles.push(createParticle(x, y));
+                }
+            }
+
+            setInterval(createFirework, 500);
+            animate();
         }
     </script>
 </body>
