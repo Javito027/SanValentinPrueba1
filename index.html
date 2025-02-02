@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Secreta</title>
+    <title>¿Quieres ser mi San Valentín?</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            background-color: #ffe6e6;
             padding: 50px;
-            background-color: #f4f4f4;
         }
         .container {
             background: white;
@@ -18,12 +18,47 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: inline-block;
         }
+        h1 {
+            color: #ff4d4d;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .yes {
+            background-color: #ff4d4d;
+            color: white;
+        }
+        .no {
+            background-color: #cccccc;
+            color: black;
+            position: absolute;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bienvenido a la Página Secreta</h1>
-        <p>Solo quienes tienen este enlace pueden verla.</p>
+        <h1>¿Quieres ser mi San Valentín? ❤️</h1>
+        <button class="yes" onclick="acceptLove()">Sí</button>
+        <button class="no" onmouseover="moveButton()">No</button>
     </div>
+
+    <script>
+        function acceptLove() {
+            alert("¡Sabía que dirías que sí! 💖😍");
+        }
+
+        function moveButton() {
+            const button = document.querySelector(".no");
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+        }
+    </script>
 </body>
 </html>
