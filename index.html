@@ -38,18 +38,41 @@
             color: black;
             position: absolute;
         }
+        .hidden {
+            display: none;
+        }
+        .celebration {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #ff4d4d;
+        }
+        .hearts {
+            font-size: 50px;
+            animation: float 1s infinite alternate;
+        }
+        @keyframes float {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-10px); }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="question">
         <h1>¿Quieres ser mi San Valentín? ❤️</h1>
         <button class="yes" onclick="acceptLove()">Sí</button>
         <button class="no" onmouseover="moveButton()">No</button>
     </div>
-
+    
+    <div class="container hidden" id="celebration">
+        <h1>¡Eres el mejor San Valentín! 💖</h1>
+        <p class="celebration">¡Te quiero muchísimo! 🎉🥰</p>
+        <div class="hearts">💘💖💕💞</div>
+    </div>
+    
     <script>
         function acceptLove() {
-            alert("¡Sabía que dirías que sí! 💖😍");
+            document.getElementById("question").classList.add("hidden");
+            document.getElementById("celebration").classList.remove("hidden");
         }
 
         function moveButton() {
